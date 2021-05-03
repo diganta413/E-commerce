@@ -1,0 +1,48 @@
+.Modal_display{
+    width: 50%;
+    height: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 25%;
+    top: 20%;
+    background-color: white;
+    z-index: 20;
+}
+.Modal{
+    width: 50%;
+    height: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: auto;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 25%;
+    top: 20%;
+    background-color: white;
+    z-index: 20;
+}
+.Modal_display input{
+    width: 30%;
+    border-radius: 30px;
+    outline: none;
+    margin-top: 30px;
+    padding: 2%;
+}
+.Modal_display button{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 15%;
+    padding: 2%;
+    background-color: cadetblue;
+    color: white;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+}

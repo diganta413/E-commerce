@@ -1,0 +1,52 @@
+.Header{
+    background-color: #2874f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1% 2%;
+}
+.Header_left img{
+    height: 50px;
+    object-fit: contain;
+    margin-right: 20px;
+}
+.Header_left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0.8;
+}
+.Header_left .search{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1%;
+    width: 50%;
+    
+}
+.Header_right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0.2;
+}
+.Header_right .MuiSvgIcon-root{
+    margin-right: 20%;
+    font-size: 30px !important;
+    cursor: pointer;
+}
+.Header_main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+.search input{
+    outline: none;
+    border: none;
+    font-size: 15px;
+}
+.search .MuiSvgIcon-root{
+    cursor: pointer;
+}
