@@ -50,3 +50,17 @@
 .search .MuiSvgIcon-root{
     cursor: pointer;
 }
+.loginmodal{
+    padding: 0 !important;
+}
+.modal-body{
+    padding: 0 !important;
+    width: 800px;
+    color: white;
+    display: flex;
+}
+.modal-content{
+    height: 500px;
+    width: 800px !important;
+    right: 30%;
+}

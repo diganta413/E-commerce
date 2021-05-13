@@ -10,8 +10,7 @@ const salts = 10;
 router.post("/register",(req,res) => {
   bcrypt.hash(req.body.password, salts, function(err, hash) {
     const user = new User({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
+      firstname: req.body.fullname,
       email: req.body.email,
       password: hash
     })
