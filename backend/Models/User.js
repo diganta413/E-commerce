@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 
 const schema = mongoose.Schema({
-    firstname: {
-        type: String,
-        required: true
-    },
-    lastname: {
+    fullname: {
         type: String,
         required: true
     },
@@ -21,6 +17,13 @@ const schema = mongoose.Schema({
     role: {
         type: String,
         default: "User"
+    },
+    isVerified: {
+        type: Boolean,
+        default: false 
+    },
+    VerificationToken: {
+        type: String,
     }
 })
 
