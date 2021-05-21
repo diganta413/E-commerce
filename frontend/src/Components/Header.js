@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -20,7 +20,7 @@ function Header() {
     const [pass,setpass] = useState("")
     const [login_error,setlogin_error] = useState("");
     const [register_error,setregister_error] = useState("");
-    const [user,setuser] = useState()
+    const [user,setuser] = useState(null)
 
     const sign_open = () => {
         if(modal==true)
@@ -36,6 +36,10 @@ function Header() {
             setmodal(true)
         }
     }
+
+    useEffect(() => {
+        console.log(localStorage.getItem("userInfo"))
+    }, [localStorage.getItem("userInfo")])
 
     const submit_register = (e) => {
         e.preventDefault();
@@ -80,7 +84,10 @@ function Header() {
                             "Authorization": `Bearer ${res.data.token}`
                         }
                     })
-                    .then((response) => console.log(response))
+                    .then((response) => {
+                        localStorage.setItem("userInfo",JSON.stringify(response.data))
+                        setuser(JSON.parse(localStorage.getItem("userInfo")))    
+                    })
                     .catch((error) => console.log(error))
                   });
             })
@@ -94,6 +101,8 @@ function Header() {
         setmodal(!modal)
     }
 
+    
+    
     return (
         <div className="Header">
             <div className="Header_main">
@@ -106,9 +115,17 @@ function Header() {
                     
                 </div>
                 <div className="Header_right">
-                    <IconButton onClick={open_modal}>
-                        <AccountCircleIcon style={{ color: "white" }} fontSize="large"/>
-                    </IconButton>
+                        {user?(<p style={{ border: "2px solid black",margin: "2% 10%",padding: "5px 10px",color: "black",fontWeight: "bolder",borderRadius: "10px" }}>{user?.fullname}</p>):
+                        (
+                            <IconButton onClick={open_modal}>
+                                <AccountCircleIcon style={{ color: "white" }} fontSize="large"/>
+                            </IconButton>
+                        )
+                        }
+                        
+                            
+                    
+                    
                     <IconButton>
                         <ShoppingCartIcon style={{ color: "white" }} fontSize="large"/>
                     </IconButton>

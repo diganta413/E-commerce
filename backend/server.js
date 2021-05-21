@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const User = require("./Models/User");
 const register = require("./Routes/user")
+const product = require("./Routes/product")
 
 require("dotenv").config();
 const app = express();
@@ -16,6 +17,7 @@ app.get("/",(req,res) => {
 })
 
 app.use("/api",register);
+app.use("/products",product);
 
 
 
