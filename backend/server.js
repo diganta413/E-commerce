@@ -4,6 +4,7 @@ const cors = require("cors");
 const User = require("./Models/User");
 const register = require("./Routes/user")
 const product = require("./Routes/product")
+const categories = require("./Routes/category")
 
 require("dotenv").config();
 const app = express();
@@ -18,6 +19,7 @@ app.get("/",(req,res) => {
 
 app.use("/api",register);
 app.use("/products",product);
+app.use("/category",categories);
 
 
 
