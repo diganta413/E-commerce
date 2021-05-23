@@ -1,9 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
+import {useHistory} from "react-router-dom";
 import "../Styles/Categories.css";
 
 function Categories() {
     const [categories,setcategories] = useState()
+    let history = useHistory();
     useEffect(() => {
         const getcategories = async () => {
             await axios.get("http://127.0.0.1:5000/category/")
@@ -22,7 +24,7 @@ function Categories() {
             <div style={{ display: "flex",alignItems: "center",alignItems: "center" }} className="category">
                 {categories?.map((category) => (
                     <div style={{ margin: "0 2%",display: "flex",flexDirection: "column",alignItems: "center",justifyContent: "center" }}>
-                        <img src={category?.imageUrl} style={{ height: "200px",width: "200px",objectFit: "contain" }}></img>
+                        <img src={category?.imageUrl} style={{ height: "200px",width: "200px",objectFit: "contain" }} onClick={() => history.push(category?.name)}></img>
                         <p style={{ fontWeight: "bolder",fontSize: "20px" }}>{category?.name}</p>
                         <p style={{ color: "grey",fontWeight: "bolder",fontSize: "17px" }}>Shp now!!</p>
                     </div>
