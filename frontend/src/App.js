@@ -1,10 +1,12 @@
-import './App.css';
 import {useState} from "react";
 import Header from "./Components/Header";
 import Carousal from "./Components/Carousal";
 import {Switch,Route,Link,BrowserRouter as Router} from "react-router-dom";
 import Categories from "./Components/Categories";
 import Category from "./Components/Category";
+import Admin from "./Components/Admin";
+import Home from "./Components/Home";
+import './App.css';
 
 function App() {
   const [dis,setdis] = useState(false)
@@ -13,14 +15,9 @@ function App() {
     <div className="App" style={{background: dis?"#0007":"white"}}>
       <Router>
         <Switch>
-          <Route path="/:category">
-              <Category/>
-          </Route>
-          <Route path="/" exact> 
-            <Header/>
-            <Carousal/>
-            <Categories/>
-          </Route>
+          <Route exact path="/admin" component={Admin}></Route>
+          <Route path="/" exact component={Home}></Route>
+          <Route path="/:category" component={Category}></Route>
         </Switch>
       </Router>
           

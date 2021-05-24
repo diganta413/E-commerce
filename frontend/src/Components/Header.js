@@ -1,15 +1,22 @@
 import React,{useState,useEffect} from 'react'
+import {useHistory} from "react-router-dom";
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import IconButton from '@material-ui/core/IconButton';
-import "../Styles/Header.css";
 import Profilemodal from "../Components/Profilemodal";
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import TextField from '@material-ui/core/TextField';
 import axios from "axios";
 import jwt from "jsonwebtoken";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import "../Styles/Header.css";
 
 function Header() {
 
@@ -21,6 +28,8 @@ function Header() {
     const [login_error,setlogin_error] = useState("");
     const [register_error,setregister_error] = useState("");
     const [user,setuser] = useState(null)
+    const [profile,setprofile] = useState(false)
+    const history = useHistory();
 
     const sign_open = () => {
         if(modal==true)
@@ -51,7 +60,7 @@ function Header() {
         {
             const body = {fullname: full_name,email: email,password: pass}
             console.log(body);
-            axios.post("http://127.0.0.1:3000/api/register",body)
+            axios.post("http://127.0.0.1:5000/api/register",body)
             .then((res) => {
                 console.log(res)
                 setemail("")
@@ -72,13 +81,13 @@ function Header() {
         else
         {
             const body = {email: email,password: pass}
-            await axios.post("http://127.0.0.1:3000/api/login",body)
+            await axios.post("http://127.0.0.1:5000/api/login",body)
             .then((res) => {
                 jwt.verify(res.data.token, 'Secrettoken', async function(err, decoded) {
                     //console.log(decoded)
                     setemail("")
                     setpass("")
-                    await axios.get(`http://127.0.0.1:3000/api/${decoded?._id}`,{
+                    await axios.get(`http://127.0.0.1:5000/api/${decoded?._id}`,{
                         headers:{
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${res.data.token}`
@@ -115,7 +124,13 @@ function Header() {
                     
                 </div>
                 <div className="Header_right">
-                        {user?(<p style={{ border: "2px solid black",margin: "2% 10%",padding: "5px 10px",color: "black",fontWeight: "bolder",borderRadius: "10px" }}>{user?.fullname}</p>):
+                        {user?
+                        (<div style={{ display: "flex",justifyContent: "center",alignItems: "center",cursor: "pointer" }} onClick={() => setprofile(!profile)}>
+                            <p style={{ fontWeight: "bolder",color: "white",fontSize: "18px",width: "150px",margin: "2% 0" }}>My Account</p>
+                            {profile?<ExpandLessIcon style={{ color: "white" }}/>:<ExpandMoreIcon style={{ color: "white" }}/>}
+                        </div>)
+                        :
+                        
                         (
                             <IconButton onClick={open_modal}>
                                 <AccountCircleIcon style={{ color: "white" }} fontSize="large"/>
@@ -195,6 +210,23 @@ function Header() {
         
       </Modal.Body>
     </Modal>
+
+    <div className="profile" style={{ position: "absolute",top: "8%",left: "70%",zIndex: "2",width: "300px",display: profile?"block":"none" }}>
+            <p style={{ marginTop: "5%" }}><AccountCircleIcon/> My Profile</p>
+            <hr/>
+            <p><FavoriteIcon/> Wishlist</p>
+            <hr/>
+            <p><ShoppingBasketIcon/> Orders</p>
+            <hr/>
+            <p><PowerSettingsNewIcon/> Logout</p>
+            <hr style={{ marginBottom: "0"}}/>
+            {(user?.role=="Admin") &&
+            (<>
+                <p onClick={() => history.push("/admin")}><SupervisorAccountIcon/> Admin</p>
+                <hr style={{ marginBottom: "0"}}/>
+            </>)    
+        }
+    </div>
         </div>
     )
 }
