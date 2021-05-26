@@ -1,0 +1,6 @@
+.admin_cat a:hover{
+    background-color: white;
+    color: black !important;
+    text-decoration: none;
+    transition: background-color 250ms ease-in;
+}

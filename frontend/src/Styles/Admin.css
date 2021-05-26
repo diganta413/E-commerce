@@ -1,0 +1,35 @@
+.product_form input{
+    width: 50%;
+    padding: 2% !important;
+    border-radius: 10px;
+    outline: none !important;
+}
+.product_form input::placeholder{
+    margin-left: 20px;
+}
+
+.product_form label{
+    color: black;
+    margin-top: 10px !important;
+    margin-right: auto;
+    margin-left: 25%;
+}
+
+.product_moadal .modal-body{
+    width: 700px;
+    color: black;
+    padding: 2% !important;
+}
+.product_moadal .modal-content{
+    height: auto;
+}
+
+.product_form button:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+}
+.admin a:hover{
+    background-color: white;
+    color: black !important;
+    text-decoration: none;
+    transition: background-color 250ms ease-in;
+}

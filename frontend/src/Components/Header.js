@@ -149,7 +149,11 @@ function Header() {
             </div>
             <Modal
       show={modal}
-      onHide={() => setmodal(!modal)}
+      onHide={() => {
+          setmodal(!modal)
+          setemail("")
+          setpass("")
+      }}
       centered
       animation={true}
       className="loginmodal"
@@ -168,7 +172,7 @@ function Header() {
             <p style={{ color: "red",marginLeft: "22%",marginTop: "12px" }}>{login_error}</p>}
         <form noValidate onSubmit={submit_login}>
                 <TextField id="standard-basic" label="Enter email" style={{ display: "block",width: "50%",margin: "10% auto" }} value={email} onChange={(e) => setemail(e.target.value)}/>
-                <TextField id="standard-basic" label="Enter password" style={{ display: "block",width: "50%",margin: "10% auto" }} value={pass} onChange={(e) => setpass(e.target.value)}/>
+                <TextField id="standard-basic" label="Enter password" style={{ display: "block",width: "50%",margin: "10% auto" }} value={pass} onChange={(e) => setpass(e.target.value)} type="password"/>
                 <button type="submit" style={{ backgroundColor: "#fb641b",color: "white",fontWeight: "bolder",padding : "2% 35%",outline: "none",margin: "10% 8%",border: "none",cursor: "pointer" }}>Log in</button>
                 
         </form>
@@ -180,7 +184,12 @@ function Header() {
     </Modal>
     <Modal
       show={modal_register}
-      onHide={() => setmodal_register(!modal_register)}
+      onHide={() => {
+          setmodal_register(!modal_register)
+          setemail("")
+          setpass("")
+          setfull_name("")
+      }}
       centered
       animation={true}
       className="registermodal"
@@ -200,7 +209,7 @@ function Header() {
         <form  onSubmit={submit_register} noValidate>
                 <TextField id="standard-basic" label="Enter full name" style={{ display: "block",width: "50%",margin: "5% auto" }} value={full_name} onChange={(e) => setfull_name(e.target.value)}/>            
                 <TextField id="standard-basic" label="Enter email" style={{ display: "block",width: "50%",margin: "5% auto" }} value={email} onChange={(e) => setemail(e.target.value)}/>
-                <TextField id="standard-basic" label="Enter password" style={{ display: "block",width: "50%",margin: "5% auto" }} value={pass} onChange={(e) => setpass(e.target.value)}/>
+                <TextField id="standard-basic" label="Enter password" style={{ display: "block",width: "50%",margin: "5% auto" }} value={pass} onChange={(e) => setpass(e.target.value)} type="password"/>
                 <button type="submit" style={{ backgroundColor: "#fb641b",color: "white",fontWeight: "bolder",padding : "2% 35%",outline: "none",margin: "10% 8%",border: "none",cursor: "pointer" }} >Register</button>
                 
         </form>
