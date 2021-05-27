@@ -27,9 +27,11 @@ function Header() {
     const [pass,setpass] = useState("")
     const [login_error,setlogin_error] = useState("");
     const [register_error,setregister_error] = useState("");
-    const [user,setuser] = useState(null)
+    //const [user,setuser] = useState(null)
     const [profile,setprofile] = useState(false)
     const history = useHistory();
+
+    const user = JSON.parse(sessionStorage.getItem("userInfo"));
 
     const sign_open = () => {
         if(modal==true)
@@ -46,9 +48,7 @@ function Header() {
         }
     }
 
-    useEffect(() => {
-        console.log(localStorage.getItem("userInfo"))
-    }, [localStorage.getItem("userInfo")])
+    
 
     const submit_register = (e) => {
         e.preventDefault();
@@ -94,8 +94,11 @@ function Header() {
                         }
                     })
                     .then((response) => {
-                        localStorage.setItem("userInfo",JSON.stringify(response.data))
-                        setuser(JSON.parse(localStorage.getItem("userInfo")))    
+                        sessionStorage.setItem("userInfo",JSON.stringify(response.data))
+                        //setuser(JSON.parse(localStorage.getItem("userInfo")))
+                        setTimeout(() => {
+                            setmodal(false)
+                        },2000)    
                     })
                     .catch((error) => console.log(error))
                   });
