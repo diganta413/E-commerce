@@ -6,7 +6,7 @@ const initialstate = {
     error: {}
 }
 
-export const reducer = (state = initialstate,action) => {
+const reducer = (state = initialstate,action) => {
     switch(action.type)
     {
         case USER_SIGNIN_REQUEST:
@@ -24,5 +24,9 @@ export const reducer = (state = initialstate,action) => {
                 ...state,
                 error: action.payload
             }
+        default: 
+            return state;
     }
-} 
+}
+
+export default reducer
