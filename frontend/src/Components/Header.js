@@ -17,6 +17,8 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import "../Styles/Header.css";
+import {useDispatch,useSelector} from "react-redux";
+import {sign_in,sign_out} from "../Actions/userActions";
 
 function Header() {
 
@@ -30,8 +32,10 @@ function Header() {
     //const [user,setuser] = useState(null)
     const [profile,setprofile] = useState(false)
     const history = useHistory();
+    const dispatch = useDispatch()
 
-    const user = JSON.parse(sessionStorage.getItem("userInfo"));
+    //const user = JSON.parse(localStorage.getItem("userInfo"));
+    const user = useSelector(state => state.userData.user)
 
     const sign_open = () => {
         if(modal==true)
@@ -81,7 +85,13 @@ function Header() {
         else
         {
             const body = {email: email,password: pass}
-            await axios.post("http://127.0.0.1:5000/api/login",body)
+            dispatch(sign_in(email,pass))
+            setemail("")
+            setpass("")
+            setTimeout(() => {
+                setmodal(false)
+            },2000)
+            /*await axios.post("http://127.0.0.1:5000/api/login",body)
             .then((res) => {
                 jwt.verify(res.data.token, 'Secrettoken', async function(err, decoded) {
                     //console.log(decoded)
@@ -103,7 +113,7 @@ function Header() {
                     .catch((error) => console.log(error))
                   });
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err))*/
         }
     }
 
@@ -113,7 +123,10 @@ function Header() {
         setmodal(!modal)
     }
 
-    
+    const log_out = () => {
+        dispatch(sign_out())
+        setprofile(false)
+    }
     
     return (
         <div className="Header">
@@ -127,7 +140,7 @@ function Header() {
                     
                 </div>
                 <div className="Header_right">
-                        {user?
+                        {(user)?
                         (<div style={{ display: "flex",justifyContent: "center",alignItems: "center",cursor: "pointer" }} onClick={() => setprofile(!profile)}>
                             <p style={{ fontWeight: "bolder",color: "white",fontSize: "18px",width: "150px",margin: "2% 0" }}>My Account</p>
                             {profile?<ExpandLessIcon style={{ color: "white" }}/>:<ExpandMoreIcon style={{ color: "white" }}/>}
@@ -230,7 +243,7 @@ function Header() {
             <hr/>
             <p><ShoppingBasketIcon/> Orders</p>
             <hr/>
-            <p><PowerSettingsNewIcon/> Logout</p>
+            <p onClick={log_out}><PowerSettingsNewIcon/> Logout</p>
             <hr style={{ marginBottom: "0"}}/>
             {(user?.role=="Admin") &&
             (<>

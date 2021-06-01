@@ -15,7 +15,7 @@ function Categories() {
         getcategories(); 
     }, [])
     
-    console.log(categories)
+    //console.log(categories)
 
     return (
         <div className="categories" style={{width: "90%",margin: "3% auto",backgroundColor: "white"}}>

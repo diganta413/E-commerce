@@ -62,7 +62,7 @@ router.post("/login",(req,res) => {
         if(result == true)
         {
           var token = jwt.sign({ _id: user._id }, 'Secrettoken',{expiresIn: '30d'});
-          res.status(200).json({token: token,_id: user._id,email: user.email,password: user.password, role: user.role});
+          res.status(200).json({token: token,email: user.email,role: user.role,name: user.fullname});
         }
       });
     }
