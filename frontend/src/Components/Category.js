@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, createContext} from 'react'
 import {useParams} from "react-router-dom"
 import axios from "axios";
 import StarIcon from '@material-ui/icons/Star';
@@ -10,24 +10,43 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import "../Styles/Category.css";
+import {useDispatch,useSelector} from "react-redux";
+import {get_all_products} from "../Actions/productActions";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Category() {
     const { category } = useParams();
-    const [products,setproducts] = useState();
+    //const [products,setproducts] = useState();
     const [value,setvalue] = useState(20000)
     const [min,setmin] = useState(0)
     const [max,setmax] = useState(20000)
     const [sort,setsort] = useState()
+    const dispatch = useDispatch()
+    const { loading,productList } = useSelector(state => state.products)
+    const [cat_prod,setcat_prod] = useState([])
     console.log(category)
 
     useEffect(() => {
-        const get_all = async () => {
+        
+            dispatch(get_all_products());
+            
+            productList?.map(prod => {
+            if(prod.category == category)
+            {
+                setcat_prod([...cat_prod,prod])
+            }
+        });
+        
+        
+        
+    
+        /*const get_all = async () => {
             await axios.get(`http://127.0.0.1:5000/products/${category}`)
             .then((res) => setproducts(res.data))
             .catch((err) => console.log(err))
-        }
+        }*/
 
-        get_all();
+        
         
     }, [])
 
@@ -60,8 +79,11 @@ function Category() {
                 <h2 style={{ margin: "2% 45%",fontWeight: "bolder" }}>Results</h2>
                 <hr/>
                 <div style={{ marginTop: "10px",display: "grid",gridTemplateColumns: "repeat(5, 1fr)",gridGap: "20px" }}>
-                {products?.map((prod) => (
-                    <div style={{ display: "flex",flexDirection: "column",alignItems: "center",justifyContent: "center",margin: "10px 20px",textAlign: "left",padding: "5%" }} className="product_card">
+                {loading?
+                (<CircularProgress style={{ margin: "20%",marginLeft: "60%" }}/>):
+                (productList?.map((prod) => (
+                    (prod.category == category)?
+                    (<div style={{ display: "flex",flexDirection: "column",alignItems: "center",justifyContent: "center",margin: "10px 20px",textAlign: "left",padding: "5%" }} className="product_card">
                         <FavoriteBorderIcon style={{ marginLeft: "auto",marginBottom: "0 !important",fontSize: "20px" }}/>
                         <img src={prod?.imageUrl} style={{ height: "200px",width: "200px",objectFit: "contain" }}></img>
                         <p style={{ fontSize: "15px",fontWeight: "bolder",overflow: "hidden",height: "50px" }}>{prod?.name}</p>
@@ -71,7 +93,9 @@ function Category() {
                             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftruthabout2017.files.wordpress.com%2F2017%2F07%2Ff-assured1.png&f=1&nofb=1" style={{ height: "20px",objectFit: "contain",marginLeft: "10px",marginBottom: "20px" }}></img>
                         </div>
                         <p style={{ fontSize: "18px",fontWeight: "bolder",marginRight: "auto" }}>$ {prod?.Price}</p>
-                    </div>
+                    </div>):
+                    ""
+                )
                 ))}
                 </div>
                 

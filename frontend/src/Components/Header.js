@@ -36,6 +36,7 @@ function Header() {
 
     //const user = JSON.parse(localStorage.getItem("userInfo"));
     const user = useSelector(state => state.userData.user)
+    console.log(JSON.parse(localStorage.getItem("UserInfo")))
 
     const sign_open = () => {
         if(modal==true)

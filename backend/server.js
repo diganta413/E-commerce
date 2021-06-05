@@ -11,7 +11,7 @@ require("dotenv").config();
 const app = express();
 mongoose.connect(`mongodb+srv://digu:${process.env.DATABASE_PASSWORD}@cluster0.4oo3o.mongodb.net/E-commerce`, {useNewUrlParser: true, useUnifiedTopology: true});
 
-app.use(express.json({limit: '10mb'}));
+app.use(express.json());
 app.use(cors());
 
 app.get("/",(req,res) => {
