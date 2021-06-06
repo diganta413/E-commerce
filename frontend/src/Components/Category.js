@@ -1,18 +1,16 @@
 import React,{useState,useEffect, createContext} from 'react'
 import {useParams} from "react-router-dom"
-import axios from "axios";
-import StarIcon from '@material-ui/icons/Star';
 import Slider from '@material-ui/core/Slider';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import "../Styles/Category.css";
 import {useDispatch,useSelector} from "react-redux";
 import {get_all_products} from "../Actions/productActions";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ProductInfo from "./ProductInfo";
 
 function Category() {
     const { category } = useParams();
@@ -50,6 +48,10 @@ function Category() {
         
     }, [])
 
+    const like = () => {
+
+    }
+
     return (
         <div style={{ padding: "1%",display: "flex" }}>
             <div className="filters" style={{ width: "200px" ,borderRadius: "10px",minHeight: "90vh",backgroundColor: "white",flex: "0.2",marginRight: "10px" }}>
@@ -76,24 +78,14 @@ function Category() {
                 </div>
             </div>
             <div className="products" style={{ flex: "0.8",backgroundColor: "white",borderRadius: "10px",overflowY: "overlay",minHeight: "90vh" }}>
-                <h2 style={{ margin: "2% 45%",fontWeight: "bolder" }}>Results</h2>
+                <h2 style={{ margin: "2% 45%",fontWeight: "bolder" }}>Products</h2>
                 <hr/>
                 <div style={{ marginTop: "10px",display: "grid",gridTemplateColumns: "repeat(5, 1fr)",gridGap: "20px" }}>
                 {loading?
                 (<CircularProgress style={{ margin: "20%",marginLeft: "60%" }}/>):
                 (productList?.map((prod) => (
                     (prod.category == category)?
-                    (<div style={{ display: "flex",flexDirection: "column",alignItems: "center",justifyContent: "center",margin: "10px 20px",textAlign: "left",padding: "5%" }} className="product_card">
-                        <FavoriteBorderIcon style={{ marginLeft: "auto",marginBottom: "0 !important",fontSize: "20px" }}/>
-                        <img src={prod?.imageUrl} style={{ height: "200px",width: "200px",objectFit: "contain" }}></img>
-                        <p style={{ fontSize: "15px",fontWeight: "bolder",overflow: "hidden",height: "50px" }}>{prod?.name}</p>
-                        <div style={{ display: "flex",alignItems: "center",justifyContent: "left",marginRight: "auto" }}>
-                            <p style={{ backgroundColor: "#388e3c",padding: "5px",color: "white",fontSize: "15px",fontWeight: "bolder",borderRadius: "5px",display: "flex",alignItems: "center" }}>{prod?.rating}<StarIcon style={{ color: "white",fontSize: "15px",marginLeft: "5px" }}/></p>
-                            <p style={{ color: "grey",fontSize: "15px",fontWeight: "bolder",marginLeft: "10px" }}>({prod?.reviews})</p>
-                            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftruthabout2017.files.wordpress.com%2F2017%2F07%2Ff-assured1.png&f=1&nofb=1" style={{ height: "20px",objectFit: "contain",marginLeft: "10px",marginBottom: "20px" }}></img>
-                        </div>
-                        <p style={{ fontSize: "18px",fontWeight: "bolder",marginRight: "auto" }}>$ {prod?.Price}</p>
-                    </div>):
+                    (<ProductInfo product={prod}/>):
                     ""
                 )
                 ))}

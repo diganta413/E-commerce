@@ -1,4 +1,12 @@
-import {USER_SIGNIN_FAILED,USER_SIGNIN_SUCCESS,USER_SIGNIN_REQUEST,USER_DETAILS_FAILED,USER_DETAILS_REQUEST,USER_DEATAILS_SUCCESS,USER_SIGNOUT_SUCCESS} from "../Constants/userConstants";
+import {
+    USER_SIGNIN_FAILED,
+    USER_SIGNIN_SUCCESS,
+    USER_SIGNIN_REQUEST,
+    USER_DETAILS_FAILED,
+    USER_DETAILS_REQUEST,
+    USER_DEATAILS_SUCCESS,
+    USER_SIGNOUT_SUCCESS,
+} from "../Constants/userConstants";
 
 /*const initialstate = {
     loading: false,
@@ -35,7 +43,7 @@ const reducer = (state = {},action) => {
     }
 }
 
-export const details_reducer = (state={loading: true},action) => {
+export const details_reducer = (state={},action) => {
     switch(action.type)
     {
         case USER_DETAILS_REQUEST:

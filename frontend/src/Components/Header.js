@@ -18,7 +18,7 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import "../Styles/Header.css";
 import {useDispatch,useSelector} from "react-redux";
-import {sign_in,sign_out} from "../Actions/userActions";
+import {sign_in,sign_out,details} from "../Actions/userActions";
 
 function Header() {
 
@@ -91,7 +91,7 @@ function Header() {
             setpass("")
             setTimeout(() => {
                 setmodal(false)
-            },2000)
+            },500)
             /*await axios.post("http://127.0.0.1:5000/api/login",body)
             .then((res) => {
                 jwt.verify(res.data.token, 'Secrettoken', async function(err, decoded) {

@@ -5,6 +5,7 @@ const send = require("../Utils/sendmail")
 const jwt = require("jsonwebtoken");
 const authenticate = require("../Utils/jwt");
 const crypto = require("crypto");
+const product = require("../Models/Products");
 
 const salts = 10;
 
@@ -62,7 +63,7 @@ router.post("/login",(req,res) => {
         if(result == true)
         {
           var token = jwt.sign({ _id: user._id }, 'Secrettoken',{expiresIn: '30d'});
-          res.status(200).json({token: token,email: user.email,role: user.role,name: user.fullname});
+          res.status(200).json({_id: user._id,token: token,email: user.email,role: user.role,name: user.fullname});
         }
       });
     }
@@ -79,6 +80,41 @@ router.get("/:id",authenticate,(req,res)=>{
     else
     {
       res.status(200).json(user);
+    }
+  })
+})
+
+router.post("/:id/add_like",(req,res) => {
+  const user_id = req.params.id;
+  const prod = req.body.prod;
+  User.findOne({_id:user_id},(err,user) => {
+    if(err)
+    res.status(400).send(err)
+    else
+    {
+      const Product = product.Product;
+      Product.findOne({_id: prod},(err,product) => {
+        if(user.Liked_items)
+        {
+          var liked_items = user.Liked_items
+          liked_items.push(product)
+          
+        }
+        else
+        {
+          var liked_items = [product]
+        }
+        
+        User.findOneAndUpdate({_id:user._id},{Liked_items: liked_items},(err,docs) => {
+          if(err)
+          res.status(400).send(err)
+          else
+          res.status(200).send(docs)
+        }) 
+      })
+
+        
+      
     }
   })
 })

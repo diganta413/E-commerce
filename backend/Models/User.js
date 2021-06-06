@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const product = require("./Products")
 
 const schema = mongoose.Schema({
     fullname: {
@@ -24,6 +25,9 @@ const schema = mongoose.Schema({
     },
     VerificationToken: {
         type: String,
+    },
+    Liked_items: {
+        type: [product.product_schema]
     }
 })
 
