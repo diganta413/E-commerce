@@ -50,7 +50,7 @@ export const details = () => async (dispatch) => {
         .then((res) => {
             dispatch({
                 type: USER_DEATAILS_SUCCESS,
-                payload: res
+                payload: res.data
             })
             localStorage.setItem("UserDetails",res)
         })

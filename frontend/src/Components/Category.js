@@ -48,9 +48,7 @@ function Category() {
         
     }, [])
 
-    const like = () => {
-
-    }
+    
 
     return (
         <div style={{ padding: "1%",display: "flex" }}>

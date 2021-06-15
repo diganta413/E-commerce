@@ -1,10 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
 import {useHistory} from "react-router-dom";
+import {details} from "../Actions/userActions";
+import {useDispatch,useSelector} from "react-redux";
 import "../Styles/Categories.css";
 
 function Categories() {
     const [categories,setcategories] = useState()
+    const user = useSelector(state => state.userData.user)
+    const dispatch = useDispatch()
     let history = useHistory();
     useEffect(() => {
         const getcategories = async () => {
@@ -14,6 +18,14 @@ function Categories() {
         }
         getcategories(); 
     }, [])
+
+    const change = (category) => {
+        if(user)
+        {
+            dispatch(details())
+        }
+        history.push(category)
+    }
     
     //console.log(categories)
 
@@ -24,7 +36,7 @@ function Categories() {
             <div style={{ display: "flex",alignItems: "center",alignItems: "center" }} className="category">
                 {categories?.map((category) => (
                     <div style={{ margin: "0 2%",display: "flex",flexDirection: "column",alignItems: "center",justifyContent: "center" }}>
-                        <img src={category?.imageUrl} style={{ height: "200px",width: "200px",objectFit: "contain" }} onClick={() => history.push(category?.name)}></img>
+                        <img src={category?.imageUrl} style={{ height: "200px",width: "200px",objectFit: "contain" }} onClick={change.bind(this,category?.name)}></img>
                         <p style={{ fontWeight: "bolder",fontSize: "20px" }}>{category?.name}</p>
                         <p style={{ color: "grey",fontWeight: "bolder",fontSize: "17px" }}>Shp now!!</p>
                     </div>

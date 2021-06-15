@@ -119,4 +119,31 @@ router.post("/:id/add_like",(req,res) => {
   })
 })
 
+router.post("/:id/delete_like",(req,res) => {
+  const user_id = req.params.id;
+  const prod = req.body.prod;
+  User.findOne({_id: user_id},(err,user) => {
+    if(err)
+    {
+      res.status(400).send(err)
+    }
+    else
+    {
+      var liked_items = user?.Liked_items;
+      liked_items.forEach((element,index) => {
+        if(element._id == prod)
+        {
+            liked_items.splice(index,1,element)
+        }
+      });
+      User.findOneAndUpdate({_id: user_id},{Liked_items: liked_items},(err,docs) => {
+        if(err)
+        res.status(400).send(err)
+        else
+        res.status(200).send(docs)
+      })
+    }
+  })
+})
+
 module.exports = router;

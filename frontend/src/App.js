@@ -18,8 +18,8 @@ function App() {
         <Switch>
         <Route exact path="/admin_cat" component={Admincat}></Route>
           <Route exact path="/admin" component={Admin}></Route>
-          <Route path="/" exact component={Home}></Route>
-          <Route path="/:category" component={Category}></Route>
+          <Route exact path="/"  component={Home}></Route>
+          <Route exact path="/:category" component={Category}></Route>
         </Switch>
       </Router>
           

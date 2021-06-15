@@ -3,19 +3,54 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import StarIcon from '@material-ui/icons/Star';
 import IconButton from '@material-ui/core/IconButton';
-import {useSelector} from "react-redux";
+import {useSelector,useDispatch} from "react-redux";
+import {details} from "../Actions/userActions";
 import axios from "axios";
 
 function ProductInfo({ product }) {
+    const user_details = useSelector(state => state.userDetails.userDetails)
     const [liked,setliked] = useState(false)
     const user = useSelector(state => state.userData.user)
 
+    useEffect(() => {
+       if(user)
+       {
+            if(user_details?.Liked_items)
+            {
+                const items = user_details?.Liked_items
+                items.forEach(element => {
+                    if(element?._id == product?._id)
+                    {
+                        setliked(true)
+                    }
+                });                
+            }
+       }
+    }, [])
+
     const like = () => {
-        setliked(!liked)
+        if(user)
+        {
+            setliked(true)
         const body = {
             prod: product._id
         }
         axios.post(`http://127.0.0.1:5000/api/${user._id}/add_like`,body)
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err.message))
+    }
+        else
+        {
+            alert("Please log in!!")
+        }
+    }
+
+    const dislike = () => {
+        setliked(false)
+        const body =  {
+            prod: product._id
+        }
+        axios.post(`http://127.0.0.1:5000/api/${user._id}/delete_like`,body)
         .then((res) => console.log(res.data))
         .catch((err) => console.log(err.message))
     }
@@ -24,10 +59,10 @@ function ProductInfo({ product }) {
         
             <div style={{ display: "flex",flexDirection: "column",alignItems: "center",justifyContent: "center",margin: "10px 20px",textAlign: "left",padding: "5%" }} className="product_card">
                 {(liked)?
-                (<IconButton style={{ marginLeft: "auto",marginBottom: "0 !important",fontSize: "20px"}} onClick={like} >
+                (<IconButton style={{ marginLeft: "auto",marginBottom: "0 !important",fontSize: "20px"}} onClick={like}>
                     <FavoriteIcon style={{ color: "red" }}/>
                 </IconButton>):
-                (<IconButton style={{ marginLeft: "auto",marginBottom: "0 !important",fontSize: "20px" }} onClick={like} >
+                (<IconButton style={{ marginLeft: "auto",marginBottom: "0 !important",fontSize: "20px" }} onClick={dislike}>
                     <FavoriteBorderIcon/>
                 </IconButton>
                 )    
