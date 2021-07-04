@@ -29,6 +29,7 @@ function Header() {
     const [pass,setpass] = useState("")
     const [login_error,setlogin_error] = useState("");
     const [register_error,setregister_error] = useState("");
+    const [query,setquery] = useState("")
     //const [user,setuser] = useState(null)
     const [profile,setprofile] = useState(false)
     const history = useHistory();
@@ -92,29 +93,7 @@ function Header() {
             setTimeout(() => {
                 setmodal(false)
             },500)
-            /*await axios.post("http://127.0.0.1:5000/api/login",body)
-            .then((res) => {
-                jwt.verify(res.data.token, 'Secrettoken', async function(err, decoded) {
-                    //console.log(decoded)
-                    setemail("")
-                    setpass("")
-                    await axios.get(`http://127.0.0.1:5000/api/${decoded?._id}`,{
-                        headers:{
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${res.data.token}`
-                        }
-                    })
-                    .then((response) => {
-                        sessionStorage.setItem("userInfo",JSON.stringify(response.data))
-                        //setuser(JSON.parse(localStorage.getItem("userInfo")))
-                        setTimeout(() => {
-                            setmodal(false)
-                        },2000)    
-                    })
-                    .catch((error) => console.log(error))
-                  });
-            })
-            .catch((err) => console.log(err))*/
+            
         }
     }
 
@@ -128,6 +107,10 @@ function Header() {
         dispatch(sign_out())
         setprofile(false)
     }
+
+    const search = () => {
+        history.push(`/searchpage/${query}`)
+    }
     
     return (
         <div className="Header">
@@ -135,8 +118,8 @@ function Header() {
                 <div className="Header_left">
                     <img src="https://logos-download.com/wp-content/uploads/2016/09/Flipkart_logo.png"></img>
                     <div className="search">
-                    <input placeholder="Search for products"></input>
-                    <SearchIcon/>
+                    <input placeholder="Search for products" value={query} onChange={(e) => setquery(e.target.value)}></input>
+                    <SearchIcon onClick={search}/>
                     </div>
                     
                 </div>

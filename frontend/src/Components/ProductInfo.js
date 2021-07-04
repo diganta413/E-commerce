@@ -46,13 +46,20 @@ function ProductInfo({ product }) {
     }
 
     const dislike = () => {
-        setliked(false)
+        if(user)
+        {
+            setliked(false)
         const body =  {
             prod: product._id
         }
         axios.post(`http://127.0.0.1:5000/api/${user._id}/delete_like`,body)
         .then((res) => console.log(res.data))
         .catch((err) => console.log(err.message))
+    }
+    else
+    {
+        alert("Please log in!!")
+    }
     }
 
     return (

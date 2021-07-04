@@ -43,10 +43,7 @@ function Category() {
     }, [])
 
 
-    useEffect(() => {
-        console.log(min)
-        console.log(max)
-    },[])
+    
 
     function sort_by_price(a,b){
         if ( parseInt(a.Price) < parseInt(b.Price)){
