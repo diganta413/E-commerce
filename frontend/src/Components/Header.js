@@ -66,7 +66,7 @@ function Header() {
         {
             const body = {fullname: full_name,email: email,password: pass}
             console.log(body);
-            axios.post("http://127.0.0.1:5000/api/register",body)
+            axios.post(`${process.env.REACT_APP_BACKEND}/api/register`,body)
             .then((res) => {
                 console.log(res)
                 setemail("")

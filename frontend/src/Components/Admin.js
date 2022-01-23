@@ -20,7 +20,7 @@ function Admin() {
 
     useEffect(() => {
         const getcategories = async () => {
-            await axios.get("http://127.0.0.1:5000/category/")
+            await axios.get(`${process.env.REACT_APP_BACKEND}/category/`)
             .then((res) => setcategories(res.data))
             .catch((err) => console.log(err))
         }
@@ -30,7 +30,7 @@ function Admin() {
     useEffect(() => {
         //setloader(true)
         const getproducts = async () => {
-            await axios.get("http://127.0.0.1:5000/products/")
+            await axios.get(`${process.env.REACT_APP_BACKEND}/products/`)
             .then((res) => {
                 setproducts(res.data)
                 setloader(false)
@@ -59,7 +59,7 @@ function Admin() {
             price: price,
             category: cat
         }
-        await axios.post("http://127.0.0.1:5000/admin/add_prod",obj)
+        await axios.post(`${process.env.REACT_APP_BACKEND}/admin/add_prod`,obj)
         .then((res) => console.log(res))
         .catch((err) => console.log(err))
     }

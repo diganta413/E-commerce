@@ -7,7 +7,7 @@ export const sign_in = (email,password) => (dispatch) => {
     dispatch({
         type: USER_SIGNIN_REQUEST
     })
-    axios.post("http://127.0.0.1:5000/api/login",{email: email,password: password})
+    axios.post(`${process.env.REACT_APP_BACKEND}/api/login`,{email: email,password: password})
     .then((res) => {
         if(res == "User not verified" || res == "user not found")
         {
@@ -41,7 +41,7 @@ export const details = () => async (dispatch) => {
     if(userInfo)
     {
         jwt.verify(userInfo.token, 'Secrettoken', async function(err, decoded) { 
-        await axios.get(`http://127.0.0.1:5000/api/${decoded?._id}`,{
+        await axios.get(`${process.env.REACT_APP_BACKEND}/api/${decoded?._id}`,{
                         headers:{
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${userInfo?.token}`

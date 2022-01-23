@@ -35,7 +35,7 @@ function ProductInfo({ product }) {
         const body = {
             prod: product._id
         }
-        axios.post(`http://127.0.0.1:5000/api/${user._id}/add_like`,body)
+        axios.post(`${process.env.REACT_APP_BACKEND}/api/${user._id}/add_like`,body)
         .then((res) => console.log(res.data))
         .catch((err) => console.log(err.message))
     }
@@ -52,7 +52,7 @@ function ProductInfo({ product }) {
         const body =  {
             prod: product._id
         }
-        axios.post(`http://127.0.0.1:5000/api/${user._id}/delete_like`,body)
+        axios.post(`${process.env.REACT_APP_BACKEND}/api/${user._id}/delete_like`,body)
         .then((res) => console.log(res.data))
         .catch((err) => console.log(err.message))
     }

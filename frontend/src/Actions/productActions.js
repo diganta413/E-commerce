@@ -7,7 +7,7 @@ export const get_all_products = () => (dispatch) => {
     dispatch({
         type: PRODUCT_LIST_REQUEST
     })
-    axios.get("http://127.0.0.1:5000/products/")
+    axios.get(`${process.env.REACT_APP_BACKEND}/products/`)
     .then((res) => dispatch({
         type: PRODUCT_LIST_SUCCESS,
         payload: res.data

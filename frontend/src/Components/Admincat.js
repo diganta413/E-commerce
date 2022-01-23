@@ -15,7 +15,7 @@ function Admincat() {
 
     useEffect(() => {
         const getcategories = async () => {
-            await axios.get("http://127.0.0.1:5000/category/")
+            await axios.get(`${process.env.REACT_APP_BACKEND}/category/`)
             .then((res) => {
                 setcategories(res.data)
                 setloader(false)
